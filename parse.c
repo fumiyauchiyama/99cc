@@ -6,24 +6,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Tokenize
-
-typedef enum {
-    TK_RESERVED, 
-    TK_NUM,
-    TK_EOF,
-} TokenKind;
-
-typedef struct Token Token;
-
-struct Token {
-    TokenKind kind;
-    Token *next;
-    int val; // value if kind is TK_NUM
-    char *str;
-    int len;
-};
-
 Token *token;
 
 char *user_input;
@@ -124,28 +106,6 @@ Token *tokenize(char *p) {
     new_token(TK_EOF, cur, p, 0);
     return head.next;
 }
-
-
-typedef enum {
-    ND_ADD, // +
-    ND_SUB, // -
-    ND_MUL, // *
-    ND_DIV, // /
-    ND_NUM, // Integer
-    ND_EQ, // ==
-    ND_NE, // !=
-    ND_LT, // <
-    ND_LE, // <=
-} NodeKind;
-
-typedef struct Node Node;
-
-struct Node {
-    NodeKind kind;
-    Node *lhs;
-    Node *rhs;
-    int val;
-};
 
 Node *new_node(NodeKind kind, Node *lhs, Node *rhs) {
     Node *node = calloc(1, sizeof(Node));
